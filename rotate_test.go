@@ -1,4 +1,4 @@
-package file
+package rotateFile
 
 import (
 	"testing"
