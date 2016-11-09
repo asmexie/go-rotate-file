@@ -5,7 +5,7 @@ import (
 )
 
 func TestWrite(t *testing.T) {
-	file := New("/tmp/test-rotate.log")
+	file := Open("/tmp/test-rotate.log")
 	defer file.Close()
 
 	file.SetSuffix(SuffixDay) // 设置文件名后缀

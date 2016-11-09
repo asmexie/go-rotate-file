@@ -36,7 +36,7 @@ type Rotate struct {
 	destKey      string // 目标文件的key值，用以区分
 }
 
-func New(filename string) *Rotate {
+func Open(filename string) *Rotate {
 	return &Rotate{
 		flag: LogFlag,
 		mode: LogMode,
