@@ -60,6 +60,33 @@ func (f *Rotate) SetMode(mode os.FileMode) {
 	f.mode = mode
 }
 
+// ResetFile 重新打开文件操作对象
+// 通常不需要调用该方法
+// 如果Write方法写入失败，可以尝试重建File对象
+func (f *Rotate) ResetFile() error {
+	now := nowFunc()
+	f.filenameMu.Lock()
+	defer f.filenameMu.Unlock()
+
+	key := now.Format(f.suffixType)
+	name := f.orgFilename + "." + key
+
+	// 创建新的文件对象
+	file, err := os.OpenFile(name, f.flag, f.mode)
+	if err != nil {
+		f.filenameMu.Unlock()
+		return err
+	}
+
+	// 关闭旧对象
+	if f.file != nil {
+		f.file.Close()
+	}
+
+	f.file, f.destFilename, f.destKey = file, name, key
+	return nil
+}
+
 func (f *Rotate) Write(b []byte) (n int, err error) {
 	now := nowFunc()
 	f.filenameMu.Lock()

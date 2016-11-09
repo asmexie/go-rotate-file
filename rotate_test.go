@@ -15,6 +15,12 @@ func TestWrite(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	file.ResetFile()
+	_, err := file.WriteString("hello world3")
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	// 模拟日期切换
 	nowFunc = func() time.Time {
 		return time.Now().Add(time.Hour * 25)
