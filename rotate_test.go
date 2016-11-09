@@ -2,6 +2,7 @@ package rotateFile
 
 import (
 	"testing"
+	"time"
 )
 
 func TestWrite(t *testing.T) {
@@ -12,6 +13,11 @@ func TestWrite(t *testing.T) {
 	_, err := file.WriteString("hello world")
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	// 模拟日期切换
+	nowFunc = func() time.Time {
+		return time.Now().Add(time.Hour * 25)
 	}
 
 	_, err = file.WriteString("hello world2")
