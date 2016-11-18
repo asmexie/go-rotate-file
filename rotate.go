@@ -42,7 +42,7 @@ func Open(filename string) *Rotate {
 		mode: LogMode,
 
 		orgFilename: filename,
-		suffixType:  string(SuffixDay), // 默认按天
+		suffixType:  string(SuffixHour), // 默认按小时
 	}
 }
 
